@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -32,17 +32,17 @@ jobs:
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
     - name: Clone source code
       run: |
-        sudo git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
-        sudo sh dl_toolchain.sh
-        sudo mkdir -p /opt/images/
+        sh dl_toolchain.sh
+        mkdir -p /opt/images/
     - name: Build Firmware
       env:
         TNAME: OYE-001
       run: |
         cd /opt/rt-n56u/trunk
-        sudo fakeroot-tcp ./build_firmware_modify $TNAME
-        sudo mv -f images/*.trx /opt/images/
+        fakeroot ./build_firmware_modify $TNAME
+        mv -f images/*.trx /opt/images/
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
