@@ -34,15 +34,14 @@ jobs:
       run: |
         sudo git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
-        sudo ./dl_toolchain.sh
+        sudo sh dl_toolchain.sh
         sudo mkdir -p /opt/images/
     - name: Build Firmware
       env:
         TNAME: OYE-001
       run: |
         cd /opt/rt-n56u/trunk
-        sudo ./clear_tree
-        sudo fakeroot ./build_firmware_modify OYE-001
+        sudo fakeroot-tcp ./build_firmware_modify $TNAME
         sudo mv -f images/*.trx /opt/images/
     - name : Upload packages
       uses: actions/upload-artifact@master
