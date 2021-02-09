@@ -47,6 +47,7 @@ jobs:
         fi
         sudo ./build_firmware_modify $TNAME
         sudo mv -f images/*.trx /opt/images/
+        sudo md5sum /opt/images/*.trx >> /opt/images/md5.txt
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
