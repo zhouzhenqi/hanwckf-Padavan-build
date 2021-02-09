@@ -38,7 +38,7 @@ jobs:
         sudo mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: OYE-001
+        TNAME: PSG1218
       run: |
         cd /opt/rt-n56u/trunk
         sudo ./build_firmware_modify $TNAME
