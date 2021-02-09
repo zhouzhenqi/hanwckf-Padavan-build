@@ -33,7 +33,7 @@ jobs:
     - name: Clone source code
       run: |
         sudo git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
-        sudo cd /opt/rt-n56u/toolchain-mipsel
+        cd /opt/rt-n56u/toolchain-mipsel
         sudo sh dl_toolchain.sh
         sudo mkdir -p /opt/images/
     - name: Build Firmware
