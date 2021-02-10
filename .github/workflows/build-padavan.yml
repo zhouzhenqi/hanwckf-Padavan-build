@@ -32,10 +32,10 @@ jobs:
         libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
     - name: Clone source code
       run: |
-        sudo git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/zhouzhenqi/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
-        sudo sh dl_toolchain.sh
-        sudo mkdir -p /opt/images/
+        sh dl_toolchain.sh
+        mkdir -p /opt/images/
     - name: Build Firmware
       env:
         TNAME: PSG1218
@@ -45,9 +45,9 @@ jobs:
         echo "configs/templates/$TNAME.config not found "
         exit 1
         fi
-        sudo ./build_firmware_modify $TNAME
-        sudo mv -f images/*.trx /opt/images/
-        sudo md5sum /opt/images/*.trx >> /opt/images/md5.txt
+        fakeroot ./build_firmware_modify PSG1218
+        mv -f images/*.trx /opt/images/
+        md5sum /opt/images/*.trx >> /opt/images/md5.txt
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
